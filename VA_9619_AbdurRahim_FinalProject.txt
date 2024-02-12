@@ -1,0 +1,156 @@
+Activity 1: 
+
+Launch Amazon Linux EC2 Instance and Set Up a Basic Apache Web Server. Test the Apache Web Server by Public IP Address. Delete the Instance.
+
+Steps: 
+
+Login as root user. 
+Check and select accurate availability region/availability zone. 
+Enter instance name and other required info
+From Quick start tab; select Redhat OS
+Select free tier Red Hat AMI
+Select instance type to t2.micro 
+Use key pair from already available key (if any) or create new key pair. 
+Configure security group [Allow SSH, HTTPS and HTTP Traffic] 
+Select default storage. 
+Launch Instance.  
+
+Connect the instance, using existing key-pair. 
+From bash terminal : cd  /c/keys
+Change the host name for user friendliness.  (sudo hostname new_hostname) 
+Exit 
+Start a new session using SSH client. 
+
+Install Apache Server: 
+sudo yum update -y 
+sudo yum install httpd -y 
+
+configure Apache Server :
+
+	sudo systemctl status httpd 
+	sudo systemctl enable httpd
+	sudo systemctl start httpd 
+	systemctl status httpd
+
+Testing with Web browser:
+	Copy the public IP address and open it on a browser.  Verify that test page is displayed. 
+
+
+
+Activity 2: 
+
+Launch Windows Server 2022 EC2 Instance and Set Up an Internet Information Server (IIS). Test the IIS Server by Public IP Address. Delete the Instance.
+
+Steps: 
+
+Launch Windows Server 22 Instance. 
+From the EC2 console, select your instance and click on Connect. 
+Download the RDP shortcut file and decrypt your password using the key pair. 
+Use the Remote Desktop client to connect to instance using the decrypted password.
+Once connected to your instance, open Server Manager.
+Click on Manage > Add Roles and Features.
+Proceed with the Add Roles and Features Wizard until you reach the Server Roles tab.
+Check Web Server (IIS) and click Next. Proceed with the installation by clicking Install.
+
+Once the installation is complete, manage IIS through the Internet Information Services (IIS) Manager found in the start menu.
+
+Test the IIS Server by Public IP Address: 
+Navigate to the public IP address of the instance and verify the default welcome page of the server is returned. 
+
+
+
+Activity 3: 
+
+Create two EC2 Instances, create an Applica􀆟on Load Balancer and test the Applica􀆟on Load Balancer. Delete two Instances and Load Balancer.
+
+Steps: 
+
+Deploy two EC2 Instances (Reference Outlined in Activity 1) 
+Select the SSH, HTTP, HTTPS allowed. 
+Use the following script for launching two instances simultaneously 
+
+#!/bin/bash
+yum update -y
+yum install -y httpd 
+systemctl start httpd 
+systemctl enable httpd
+echo "<h1> Hello from $(hostname -f) </h1>" > /var/www/html/index.html
+
+
+Once the instances are up and running; 
+>Configure a target group
+
+Choose Create target group.
+Select Instances to specify targets by instance  
+For Target group name, enter a name for the target group.
+Modify the Port and Protocol as needed.
+
+Register targets 
+
+Create Load Balancer: 
+a. Load Balancer Name
+b. Scheme: Internet facing 
+c. Select the security group of which inbound rules for SSH, HTTP and HTTPS are allowed. 
+d. Selete Listener and routing 
+e. From the newly created load balancer, copy the DNS name  and paste in the web browser
+
+Testing: 
+
+From Instances, stop one instance and refresh. Verify that other instance is up and running and displaying the expected hostname. 
+Start the stopped instance and stop the alreayd running instance. Verify from the browser that the stopped instance is displayed. 
+
+
+
+Activity 4:  
+
+Create a public repo in GitHub, configure git in local machine, Clone the Public Repo. Create a Text File, or Word File. Document what you did on the above activities. 
+Provide GitHub repo name in document. Push this document to your GitHub repo.
+
+Steps: 
+Create and configure SSH key  
+	cd ~/.ssh
+a. generate a new SSH key : (rsa or ed25519)
+    ssh-keygen -t ed25519 -C "emailaddress"
+
+b. start the SSH Agent
+    eval "$(ssh-agent -s)"
+    
+c. add your SSH private key to the ssh-agent
+    ssh-add ~/.ssh/id_ed25519
+    
+d. Add SSH key to the Github
+    you need to copy your SSH public key to the clipboard.
+    cat ~/.ssh/id_ed25519.pub
+    Go to github account and go to Settings
+    From sidebar; navigate to SSH and GPG keys
+    click on New SSH key button
+
+e. Test SSH connection
+   ssh -T git@github.com
+   If key is added, the valid response should be like: 
+   Hi user! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+2. Create a public repo in github 
+3. Clone the public repo to a local folder using git bash
+4. touch a text file 
+5. copy these texts 
+6. push the code to the remote branch 
+
+git config --global user.name " name"
+git config --global user.email "email"
+git config --global --list
+
+
+Acitivity 5: 
+
+Python- Download and Install PyCharm IDE, Create a New Project with main.py. Ask the User's name and age by Input Command. Print the info
+
+Steps: 
+1. Create a public repo in github
+2. Create python project in pycharm using github 
+3. Create the main.py file 
+4. Complete the code challenge and push it 
+
+
+
