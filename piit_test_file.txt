@@ -1,0 +1,13 @@
+
+e. Test SSH connection
+   ssh -T git@github.com
+   If key is added, the valid response should be like: 
+   Hi user! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+2. Create a public repo in github 
+3. Clone the public repo to a local folder using git bash
+4. touch a text file 
+5. copy these texts 
+6. push the code to the remote branch 
+
